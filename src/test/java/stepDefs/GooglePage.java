@@ -1,13 +1,9 @@
-package pages;
+package stepDefs;
 
 import driver.Driver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 
 public class GooglePage {
 
