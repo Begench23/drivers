@@ -14,7 +14,9 @@ public class One {
 
         String title = Driver.getDriver().getTitle();
 
-        Assert.assertEquals("expected", title);
+        //System.out.println(title);
+
+        Assert.assertEquals("Google", title);
 
 
     }
