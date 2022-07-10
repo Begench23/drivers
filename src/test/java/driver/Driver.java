@@ -17,14 +17,16 @@ public class Driver {
         // singleton design pattern
     }
 
-    private static WebDriver driver= null;
+   // private static WebDriver driver= null;
+
+    public static InheritableThreadLocal<WebDriver> driver= new InheritableThreadLocal<>();
 
     static String browser= ConfigurationReader.getProperty("browser");
 
 
     public static WebDriver getDriver(){
 
-        if (driver == null){
+        if (driver.get() == null){
 
 
             switch (browser){
@@ -35,7 +37,7 @@ public class Driver {
 
                     //  options.setHeadless(true);
                     // options.addArguments("--headless");
-                    driver= new ChromeDriver(options);
+                    driver.set(new ChromeDriver(options));
                     break;
 
                 case"firefox":
@@ -43,7 +45,7 @@ public class Driver {
                     WebDriverManager.firefoxdriver().setup();
                     FirefoxOptions options1 = new FirefoxOptions();
                     options1.setHeadless(true);
-                    driver= new FirefoxDriver(options1);
+                    driver.set(new FirefoxDriver(options1));
                     break;
 
                 default:
@@ -52,21 +54,22 @@ public class Driver {
             }
 
 
-            driver.manage().window().maximize();
-            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+            driver.get().manage().window().maximize();
+            driver.get().manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
 
         }
 
-        return driver;
+        return driver.get();
 
     }
 
     public static void closeDrive(){
 
-        if (driver != null){
+        if (driver.get() != null){
 
-            driver.quit();
+            driver.get().quit();
+            driver.remove();
             driver= null;
 
         }
